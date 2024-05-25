@@ -1,9 +1,14 @@
 package hexlet.code;
 
+import hexlet.code.schemas.BaseSchema;
 import hexlet.code.schemas.StringSchema;
 import hexlet.code.schemas.NumberSchema;
+import hexlet.code.schemas.MapSchema;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,5 +54,50 @@ public final class SchemaTest {
         schema.range(10, 15);
         assertThat(schema.isValid(12)).isEqualTo(true);
         assertThat(schema.isValid(20)).isEqualTo(false);
+    }
+
+    @Test
+    public void testMapSchema() {
+        MapSchema<String, String> schema = new Validator().map();
+        HashMap<String, String>   person = new HashMap<String, String>();
+
+        assertThat(schema.isValid(person)).isEqualTo(true);
+        assertThat(schema.isValid(null)).isEqualTo(true);
+        person.put("name1", "Sam");
+        assertThat(schema.isValid(person)).isEqualTo(true);
+
+        schema.required();
+        assertThat(schema.isValid(null)).isEqualTo(false);
+
+        schema.sizeof(2);
+        assertThat(schema.isValid(person)).isEqualTo(false);
+        person.put("name2", "Dean");
+        assertThat(schema.isValid(person)).isEqualTo(true);
+    }
+
+    @Test
+    public void testMapSchemaShape() {
+        Validator                       validator = new Validator();
+        MapSchema<String, String>       schema    = new Validator().map();
+        Map<String, BaseSchema<String>> schemas   = new HashMap<String, BaseSchema<String>>();
+
+        schemas.put("firstName", validator.string().required());
+        schemas.put("lastName", validator.string().required().minLength(2));
+
+        schema.shape(schemas);
+        Map<String, String> person1 = new HashMap<>();
+        person1.put("firstName", "Sam");
+        person1.put("lastName", "Winchester");
+        assertThat(schema.isValid(person1)).isEqualTo(true);
+
+        Map<String, String> person2 = new HashMap<>();
+        person2.put("firstName", "Dean");
+        person2.put("lastName", null);
+        assertThat(schema.isValid(person2)).isEqualTo(false);
+
+        Map<String, String> person3 = new HashMap<>();
+        person3.put("firstName", "Bobby");
+        person3.put("lastName", "S");
+        assertThat(schema.isValid(person3)).isEqualTo(false);
     }
 }

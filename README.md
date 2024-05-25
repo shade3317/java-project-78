@@ -11,7 +11,15 @@
 
 
 ### **Descriptions**
-Data validator is a library that can be used to check the correctness of data, such as strings, numbers Map.
+Data validator is a library that can be used to check the correctness of data. 
+
+
+Validation possible:
+* Strings
+* Numbers
+* Map
+* Data inside Map
+
 
 
 ### **Installing**
