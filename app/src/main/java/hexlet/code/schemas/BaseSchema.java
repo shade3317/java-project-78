@@ -10,7 +10,7 @@ public abstract class BaseSchema<T> {
     protected Map<String, Predicate<T>> restrictions = new LinkedHashMap<>();
 
     /**
-     * Checks that all restrictions were respected
+     * Checks that all restrictions were respected.
      * @param object to be checked
      * @return true if all restrictions were respected, otherwise false
      */
@@ -19,7 +19,7 @@ public abstract class BaseSchema<T> {
     }
 
     /**
-     * Add nonNull restrictions
+     * Add nonNull restrictions.
      * @return this object type
      */
     public BaseSchema<T> required() {
