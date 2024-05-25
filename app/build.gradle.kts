@@ -1,17 +1,11 @@
 plugins {
     java
-    application
-    distribution
     checkstyle
     jacoco
 }
 
 group = "hexlet.code"
 version = "1.0-SNAPSHOT"
-
-application {
-    mainClass = "hexlet.code.App"
-}
 
 repositories {
     mavenCentral()
@@ -23,10 +17,6 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.22.0")
 
     implementation("org.apache.commons:commons-lang3:3.14.0")
-}
-
-tasks.getByName("run", JavaExec::class) {
-    standardInput = System.`in`
 }
 
 tasks.test {
