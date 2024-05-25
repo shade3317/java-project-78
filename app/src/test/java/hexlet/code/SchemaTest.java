@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public final class StringSchemaTest {
+public final class SchemaTest {
     @Test
     public void testStringSchema() {
         StringSchema schema = new Validator().string();
