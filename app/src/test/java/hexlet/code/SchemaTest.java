@@ -58,7 +58,7 @@ public final class SchemaTest {
     @Test
     public void testMapSchema() {
         MapSchema<String, String> schema = new Validator().map();
-        HashMap<String, String>   person = new HashMap<String, String>();
+        HashMap<String, String>   person = new HashMap<>();
 
         assertThat(schema.isValid(person)).isEqualTo(true);
         assertThat(schema.isValid(null)).isEqualTo(true);
@@ -75,10 +75,10 @@ public final class SchemaTest {
     }
 
     @Test
-    public void testMapSchemaShape() {
+    public void testMapShapeSchema() {
         Validator                       validator = new Validator();
         MapSchema<String, String>       schema    = new Validator().map();
-        Map<String, BaseSchema<String>> schemas   = new HashMap<String, BaseSchema<String>>();
+        Map<String, BaseSchema<String>> schemas   = new HashMap<>();
 
         schemas.put("firstName", validator.string().required());
         schemas.put("lastName", validator.string().required().minLength(2));
