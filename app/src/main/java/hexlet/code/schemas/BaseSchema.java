@@ -10,7 +10,7 @@ public abstract class BaseSchema<T> {
     protected Map<String, Predicate<T>> restrictions = new LinkedHashMap<>();
 
     public boolean isValid(T object) {
-        return restrictions.values().stream().allMatch(v -> v.test(object));
+        return restrictions.values().stream().allMatch(r -> r.test(object));
     }
 
     public BaseSchema<T> required() {

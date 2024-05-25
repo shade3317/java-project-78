@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.schemas.StringSchema;
+import hexlet.code.schemas.NumberSchema;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,28 @@ public final class StringSchemaTest {
         assertThat(schema.isValid("Everything back and more")).isEqualTo(false);
         assertThat(schema.isValid("And I'm not gonna let this go")).isEqualTo(true);
 
-        assertThat(schema.contains("war").isValid("I'm ready to settle the score")).isEqualTo(false);
-        assertThat(schema.contains("war").isValid("Get ready cause this is war.")).isEqualTo(true);
+        schema.contains("war");
+        assertThat(schema.isValid("I'm ready to settle the score")).isEqualTo(false);
+        assertThat(schema.isValid("Get ready cause this is war.")).isEqualTo(true);
+    }
+
+    @Test
+    public void testNumberSchema() {
+        NumberSchema schema = new Validator().number();
+
+        assertThat(schema.isValid(null)).isEqualTo(true);
+        assertThat(schema.isValid(4)).isEqualTo(true);
+        assertThat(schema.isValid(-6)).isEqualTo(true);
+
+        schema.required();
+        assertThat(schema.isValid(null)).isEqualTo(false);
+
+        schema.positive();
+        assertThat(schema.isValid(8)).isEqualTo(true);
+        assertThat(schema.isValid(-10)).isEqualTo(false);
+
+        schema.range(10, 15);
+        assertThat(schema.isValid(12)).isEqualTo(true);
+        assertThat(schema.isValid(20)).isEqualTo(false);
     }
 }
