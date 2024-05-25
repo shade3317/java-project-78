@@ -14,8 +14,7 @@ public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
             K key = entry.getKey();
             BaseSchema<V> schema = entry.getValue();
 
-            restrictions.put("shape", v -> v == null || schema.isValid(v.get(key))
-            );
+            restrictions.put("shape", v -> v == null || schema.isValid(v.get(key)));
         }
         return this;
     }
