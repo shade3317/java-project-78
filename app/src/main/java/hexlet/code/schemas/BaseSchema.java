@@ -1,13 +1,13 @@
 package hexlet.code.schemas;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 
 
 public abstract class BaseSchema<T> {
-    protected Map<String, Predicate<T>> restrictions = new LinkedHashMap<>();
+    protected Map<String, Predicate<T>> restrictions = new HashMap<>();
 
     /**
      * Checks that all restrictions were respected.
@@ -23,7 +23,11 @@ public abstract class BaseSchema<T> {
      * @return this object type
      */
     public BaseSchema<T> required() {
-        restrictions.put("required", Objects::nonNull);
+        addRestrictions("required", Objects::nonNull);
         return this;
+    }
+
+    protected final void addRestrictions(String nameRestrictions, Predicate<T> condition) {
+        restrictions.put(nameRestrictions, condition);
     }
 }
