@@ -10,12 +10,8 @@ public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
     }
 
     public MapSchema<K, V> shape(Map<K, BaseSchema<V>> schemas) {
-        for (Map.Entry<K, BaseSchema<V>> entry : schemas.entrySet()) {
-            K key = entry.getKey();
-            BaseSchema<V> schema = entry.getValue();
-
-            addRestrictions("shape", v -> v == null || schema.isValid(v.get(key)));
-        }
+        addRestrictions("shape", value -> value != null && schemas.entrySet().stream()
+                .allMatch(entry -> entry.getValue().isValid(value.get(entry.getKey()))));
         return this;
     }
 }
