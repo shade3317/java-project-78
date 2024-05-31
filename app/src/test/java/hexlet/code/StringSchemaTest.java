@@ -24,6 +24,9 @@ public class StringSchemaTest {
     public void testMinLength() {
         StringSchema schema = new Validator().string();
 
+        assertThat(schema.isValid("Everything back and more")).isEqualTo(true);
+        assertThat(schema.isValid("And I'm not gonna let this go")).isEqualTo(true);
+
         schema.minLength(25);
         assertThat(schema.isValid("Everything back and more")).isEqualTo(false);
         assertThat(schema.isValid("And I'm not gonna let this go")).isEqualTo(true);
@@ -32,6 +35,9 @@ public class StringSchemaTest {
     @Test
     public void testContains() {
         StringSchema schema = new Validator().string();
+
+        assertThat(schema.isValid("I'm ready to settle the score")).isEqualTo(true);
+        assertThat(schema.isValid("Get ready cause this is war.")).isEqualTo(true);
 
         schema.contains("war");
         assertThat(schema.isValid("I'm ready to settle the score")).isEqualTo(false);

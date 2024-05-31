@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 
 public abstract class BaseSchema<T> {
-    protected Map<String, Predicate<T>> restrictions = new HashMap<>();
+    private Map<String, Predicate<T>> restrictions = new HashMap<>();
 
     /**
      * Checks that all restrictions were respected.

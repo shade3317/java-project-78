@@ -22,6 +22,9 @@ public class NumberSchemaTest {
     public void testPositive() {
         NumberSchema schema = new Validator().number();
 
+        assertThat(schema.isValid(8)).isEqualTo(true);
+        assertThat(schema.isValid(-10)).isEqualTo(true);
+
         schema.positive();
         assertThat(schema.isValid(8)).isEqualTo(true);
         assertThat(schema.isValid(-10)).isEqualTo(false);
@@ -30,6 +33,9 @@ public class NumberSchemaTest {
     @Test
     public void testRange() {
         NumberSchema schema = new Validator().number();
+
+        assertThat(schema.isValid(12)).isEqualTo(true);
+        assertThat(schema.isValid(20)).isEqualTo(true);
 
         schema.range(10, 15);
         assertThat(schema.isValid(12)).isEqualTo(true);
